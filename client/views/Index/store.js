@@ -60,7 +60,7 @@ export default {
          * @param state
          */
         async saveToday({state}){
-            window.UTILS.saveJSON(state.today).to("/static/data/today.json");
+            window.UTILS.saveData(state.today).to("/static/data/today.json");
         },
 
         /**
@@ -68,7 +68,7 @@ export default {
          * @param state
          */
         async saveIngredients({state}){
-            window.UTILS.saveJSON(state.ingredients).to("/static/data/Ingredients.json")
+            window.UTILS.saveData(state.ingredients).to("/static/data/Ingredients.json")
                 .then(() => {
                     $vue.$message.success("操作成功");
                 });
@@ -79,7 +79,7 @@ export default {
          * @param state
          */
         async saveHistory({state}){
-            window.UTILS.saveJSON(state.history).to("/static/data/history.json")
+            window.UTILS.saveData(state.history).to("/static/data/history.json")
                 .then(() => {
                     $vue.$message.success("操作成功");
                 });

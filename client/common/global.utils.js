@@ -1,5 +1,6 @@
 const {remote} = require('electron');
 let path= require("path");
+console.log(path.join(process.cwd()));
 let configDir = remote.app.getPath('userData');
 let createFolder = function(to) { //文件写入
     let sep = path.sep;
@@ -14,6 +15,7 @@ let createFolder = function(to) { //文件写入
         }
     }
 };
+
 window.UTILS = {
     async readData(path){
         //优先读取用户目录
@@ -66,6 +68,20 @@ window.UTILS = {
         return result;
     },
 
+    saveData(obj){
+        return {
+            /**
+             * 传入要保存的路径
+             * @param path <String> 路径
+             */
+            to(path){
+                window.UTILS.saveJSON(obj).to(PATH+path);
+                window.UTILS.saveJSON(obj).to(configDir+path);
+            }
+        }
+
+    },
+
     /**
      * 保存JSON文件
      * @param obj <Object> 要保存的对象
@@ -82,6 +98,7 @@ window.UTILS = {
                     FS.writeFile(absolutePath,JSON.stringify(obj),(err)=>{
                         if (err){
                             $vue.$message.error("保存本地数据失败");
+                            console.log(err);
                             reject();
                         }else{
                             resolve();
